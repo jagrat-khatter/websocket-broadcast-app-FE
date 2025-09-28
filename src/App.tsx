@@ -20,7 +20,7 @@ function App() {
   // Create WebSocket connection when joined is true
   useEffect(() => {
       // Connect to server with roomId and userName as query parameters
-      const socketInstance: WebSocket = new WebSocket(`ws://localhost:8080`)
+      const socketInstance: WebSocket = new WebSocket(`wss://websocket-broadcast-app-be.onrender.com`)
       setSocket(socketInstance)
 
       socketInstance.onopen = () => console.log('WebSocket connected')
