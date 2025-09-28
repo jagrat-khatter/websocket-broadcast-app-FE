@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+
 interface message {
-  user: String ,
+  user: String,
   text: String
 }
 
@@ -20,7 +19,6 @@ function App() {
 
   // Create WebSocket connection when joined is true
   useEffect(() => {
-    
       // Connect to server with roomId and userName as query parameters
       const socketInstance: WebSocket = new WebSocket(`ws://localhost:8080`)
       setSocket(socketInstance)
@@ -44,15 +42,15 @@ function App() {
   const handleSend = () => {
     if (socket && socket.readyState === WebSocket.OPEN && message) {
       const payload: object = {
-                                type: "chat" ,
-                                user : userName,
-                                text : message
-                              }
-      const payload2: message = {
-          user : "You",
-          text : message
+        type: "chat",
+        user: userName,
+        text: message
       }
-      setChatMessages(prev => [...prev , payload2]);
+      const payload2: message = {
+        user: "You",
+        text: message
+      }
+      setChatMessages(prev => [...prev, payload2]);
       socket.send(JSON.stringify(payload));
       setMessage('')
     }
@@ -60,10 +58,9 @@ function App() {
 
   // Handle joining a room
   const handleJoinRoom = () => {
-    // Ensure roomId and userName are provided before joining
     if (roomId.trim() && userName.trim()) {
-      const payload = {type:"join" , roomId: roomId.trim()}
-      if(socket && socket.readyState === WebSocket.OPEN) socket.send(JSON.stringify(payload));
+      const payload = { type: "join", roomId: roomId.trim() }
+      if (socket && socket.readyState === WebSocket.OPEN) socket.send(JSON.stringify(payload));
       setJoined(true)
     }
   }
@@ -71,7 +68,6 @@ function App() {
   return (
     <div className='h-screen bg-gray-900 grid grid-cols-12 grid-rows-12 p-4'>
       {!joined ? (
-        // Join room section
         <div className='col-span-12 flex flex-col items-center justify-center'>
           <h2 className='text-white text-2xl mb-4'>Join a Chat Room</h2>
           <div className='flex flex-col space-y-4 w-full max-w-md mt-64'>
@@ -98,7 +94,6 @@ function App() {
           </div>
         </div>
       ) : (
-        // Chat interface after joining a room
         <div className='bg-gray-800 col-span-4 col-start-5 row-span-10 row-start-2 rounded-2xl flex flex-col justify-between p-4 shadow-lg'>
           <div className='mb-4'>
             <h3 className='text-white text-lg'>Room: {roomId}</h3>
