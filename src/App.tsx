@@ -83,6 +83,7 @@ function App() {
               placeholder='Username'
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
+              spellCheck={false}
               className='p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-indigo-500'
             />
             <button 
@@ -113,6 +114,7 @@ function App() {
               type='text' 
               placeholder='Type your message...'
               value={message}
+              spellCheck={false}
               onChange={(e) => setMessage(e.target.value)}
               className='flex-grow p-2 rounded bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-indigo-500'
             />
